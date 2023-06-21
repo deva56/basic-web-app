@@ -1,0 +1,38 @@
+<!-- href="{{apiUrlEndpoint}}docs/swagger-ui/index.html" -->
+<!-- href="{{apiUrlEndpoint}}docs/api-docs" -->
+
+<mat-drawer-container class="sidenav-container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="side" opened="true">
+        <mat-list>
+            <div mat-subheader>User management</div>
+            <mat-list-item>
+                <mat-icon matListItemIcon>person</mat-icon>
+                <div matListItemTitle>
+                    <button class="btn btn-primary" routerLink="/admin/manage-users">Manage users</button>
+                </div>
+            </mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <mat-list>
+            <div mat-subheader>API management</div>
+            <mat-list-item>
+                <mat-icon matListItemIcon>folder</mat-icon>
+                <div matListItemTitle>
+                    <a class="btn btn-primary" routerLink="/admin/api-info/swagger-ui">Swagger UI</a>
+                </div>
+            </mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <mat-list>
+            <div mat-subheader>Other categories...</div>
+        </mat-list>
+    </mat-drawer>
+    <div class="sidenav-content">
+        <div class="simple-form-section" style="text-align: center;">
+            <h1 style="text-align:center">Admin manage panel</h1>
+            <hr>
+            <h1 style="margin-top: 2em;">Choose one of the actions from the menu on the left</h1>
+            <h1 style="margin-top: 2em;">Other information goes here, will be implemented later...</h1>
+        </div>
+    </div>
+</mat-drawer-container>

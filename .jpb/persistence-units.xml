@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit name="Default" defaultIncludeChangeLogFile="reviewer-main/src/main/resources/db.changelog/changelog-master.xml">
+        <packages>
+          <package value="com.futurefactorytech.reviewer.domain" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>

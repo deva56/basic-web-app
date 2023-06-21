@@ -1,0 +1,17 @@
+.sidenav-container {
+    height:500px;
+  }
+  
+  .sidenav-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sidenav {
+    padding: 20px;
+    height: 500px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+  }

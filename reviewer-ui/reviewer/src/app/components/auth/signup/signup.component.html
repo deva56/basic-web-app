@@ -1,0 +1,77 @@
+<div class="simple-form-section">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                    <h4 style="padding-top: 1em;">Register</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="signupForm" (ngSubmit)="signup()">
+                        <div class="form-group row justify-content-center">
+                            <label for="email_address" class="col-md-4 col-form-label text-md-right"
+                                style="text-align: center">E-Mail
+                                Address:</label>
+                            <div class="col-md-6">
+                                <input type="email" [formControlName]="'email'" id="email_address" class="form-control"
+                                    name="email-address" required autofocus placeholder="example@mail.com"
+                                    maxlength="45">
+                                <span class="invalid-validation-field"
+                                    *ngIf="!signupForm.get('email')?.valid && signupForm.get('email')?.touched">Please
+                                    provide a valid email.</span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center" style="margin-top: 1%;">
+                            <label class="col-md-4 col-form-label text-md-right" style="text-align: center">User
+                                Name:</label>
+                            <div class="col-md-6">
+                                <input type="text" [formControlName]="'username'" class="form-control" required
+                                    autofocus placeholder="Username" minlength="4" maxlength="45">
+                                <span class="invalid-validation-field"
+                                    *ngIf="!signupForm.get('username')?.valid && signupForm.get('username')?.touched">Please
+                                    provide a valid username with minimum of 4 characters.</span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center" style="margin-top: 1%;">
+                            <label for="password" class="col-md-4 col-form-label text-md-right"
+                                style="text-align: center">Password:</label>
+                            <div class="col-md-6">
+                                <input type="password" [formControlName]="'password'" id="password" class="form-control"
+                                    name="password" required placeholder="Password" minlength="6" maxlength="45">
+                                <span class="invalid-validation-field"
+                                    *ngIf="!signupForm.get('password')?.valid && signupForm.get('password')?.touched">Please
+                                    provide a valid password with minimum of 6 characters.</span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center" style="margin-top: 1%;">
+                            <label for="confirmPassword" class="col-md-4 col-form-label text-md-right"
+                                style="text-align: center">Confirm
+                                Password:</label>
+                            <div class="col-md-6">
+                                <input type="password" [formControlName]="'confirmPassword'" id="confirmPassword"
+                                    class="form-control" name="confirmPassword" required
+                                    placeholder="Password confirmation" minlength="6" maxlength="64">
+                                <span class="invalid-validation-field"
+                                    *ngIf="!signupForm.get('confirmPassword')?.valid && signupForm.get('confirmPassword')?.touched">Please
+                                    provide a matching password confirmation.</span>
+                                <br>
+                                <span class="invalid-validation-field"
+                                    *ngIf="signupForm.hasError('passwordNotMatching')">Passwords
+                                    do not match.</span>
+                            </div>
+                        </div>
+                        <div *ngIf="this.signupError!=''" class="flex-center-container" style="margin-bottom: 1em;">
+                            <span class="invalid-validation-field-main">{{signupError}}</span>
+                        </div>
+                        <div class="flex-center-container">
+                            <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">
+                                Sign Up
+                            </button>
+                            <span style="padding-left: 1em;align-self: center;">Existing user? <a
+                                    routerLink="/login">Log In</a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

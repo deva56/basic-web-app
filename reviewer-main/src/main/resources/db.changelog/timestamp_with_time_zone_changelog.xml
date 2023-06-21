@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="Antonio" id="19062023-1">
+        <modifyDataType
+                columnName="created_at"
+                newDataType="timestamp with time zone"
+                tableName="refresh_token"/>
+
+        <modifyDataType
+                columnName="expires_at"
+                newDataType="timestamp with time zone"
+                tableName="refresh_token"/>
+    </changeSet>
+
+    <changeSet author="Antonio" id="19062023-2">
+        <modifyDataType
+                columnName="created_at"
+                newDataType="timestamp with time zone"
+                tableName="validation_token"/>
+
+        <modifyDataType
+                columnName="expires_at"
+                newDataType="timestamp with time zone"
+                tableName="validation_token"/>
+    </changeSet>
+
+    <changeSet author="Antonio" id="19062023-3">
+        <modifyDataType
+                columnName="created_at"
+                newDataType="timestamp with time zone"
+                tableName="refresh_token"/>
+
+        <modifyDataType
+                columnName="expires_at"
+                newDataType="timestamp with time zone"
+                tableName="forgot_password_token"/>
+    </changeSet>
+
+</databaseChangeLog>

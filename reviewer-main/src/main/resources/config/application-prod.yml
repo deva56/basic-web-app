@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    change-log: classpath:db.changelog/changelog-master.xml
+
+  mail:
+    host: ${MAIL_HOST}
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            protocols: TLSv1.2
+            trust: ${MAIL_HOST}
+          starttls:
+            enable: true
+            required: true
+
+springdoc:
+  api-docs:
+    path: /api/v1/docs/api-docs
+  swagger-ui:
+    path: /api/v1/docs/swagger
+
+application-config:
+  jwt:
+    secret-key: ${JWT_SECRET_KEY}
+  email:
+    from-address: noreply@reviewer.com
+  client-application-url: ${CLIENT_APPLICATION_URL}
+  api-domain: ${API_DOMAIN}
+  token-encryption-password: ${TOKEN_ENCRYPTION_PASSWORD}
+  token-encryption-salt: ${TOKEN_ENCRYPTION_SALT}

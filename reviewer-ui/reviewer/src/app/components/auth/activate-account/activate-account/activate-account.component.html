@@ -1,0 +1,49 @@
+<div *ngIf='this.hideForm===false' class="simple-form-section">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="text-align: center">
+                    <h4 style="margin-top: 1em;">Activate account</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="activateAccountForm" (ngSubmit)="requestValidationCode()">
+                        <div class="form-group row justify-content-center">
+                            <label for="email" class="col-md-4 col-form-label text-md-right"
+                                style="text-align: center;">Email address:</label>
+                            <div class="col-md-6">
+                                <input type="email" id="email" class="form-control" [formControlName]="'email'"
+                                    name="email" required autofocus placeholder="example@mail.com" maxlength="45">
+                                <span class="invalid-validation-field"
+                                    *ngIf="!activateAccountForm.get('email')?.valid && activateAccountForm.get('email')?.touched">Please
+                                    provide a valid email.</span>
+                            </div>
+                            <div class="flex-center-container" style="margin-top: 1em;">
+                                <span class="invalid-validation-field-main">{{this.resultText}}</span>
+                            </div>
+                            <span class="flex-center-container" style="margin-top: 1em;">
+                                <button type="submit" class="btn btn-primary" [disabled]="activateAccountForm.invalid">
+                                    Send activation email
+                                </button>
+                                <span style="padding-left: 1em;align-self: center;">Or <a routerLink="/login">Log
+                                        In</a></span>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf='this.hideForm===true' class="simple-form-section">
+    <div class="row justify-content-center">
+        <div class="col-md-6 card token-result-section">
+            <h1 class="display-4 text-center"><b>{{this.resultText}}</b></h1>
+            <span class="flex-center-container" style="margin-top: 1em;">
+                <p style="margin-right: 1em;margin-top: 1em;">Something went wrong?</p>
+                <button type="submit" class="btn btn-primary" (click)="requestNewValidationCode()">
+                    Send new account activation email
+                </button>
+            </span>
+        </div>
+    </div>
+</div>

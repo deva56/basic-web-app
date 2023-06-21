@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+
+.invalid-validation-field {
+    color: red;
+}
+
+.invalid-validation-field-main {
+    color: red;
+}
+
+span.invalid-validation-field::before {
+    content: "*";
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.flex-center-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.simple-form-section {
+    margin: 5em;
+}
+
+.token-result-section {
+    padding-bottom: 5%;
+    padding-top: 5%;
+    background-color: whitesmoke;
+    border-width: 2px;
+}

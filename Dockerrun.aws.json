@@ -1,0 +1,17 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Authentication": {
+    "bucket": "docker-login-bucket-basic-web-app-api",
+    "key": "dockercfg"
+  },
+  "Image": {
+    "Name": "devky56/basic_web_app:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8080"
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}

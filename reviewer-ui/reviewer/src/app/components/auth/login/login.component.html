@@ -1,0 +1,62 @@
+<div class="simple-form-section">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="text-align: center">
+                    <h4 style="padding-top: 1em;">Login</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="loginForm" (ngSubmit)="login()">
+                        <div class="form-group row justify-content-center">
+                            <label for="usernameEmail" class="col-md-3 col-form-label text-md-right"
+                                style="text-align: center">Username or
+                                email:</label>
+                            <div class="col-md-6">
+                                <input type="text" id="usernameEmail" class="form-control"
+                                    [formControlName]="'usernameEmail'" name="usernameEmail" required autofocus
+                                    placeholder="Username or email" minlength="4" maxlength="45">
+                                <span class="invalid-validation-field"
+                                    *ngIf="!loginForm.get('usernameEmail')?.valid && loginForm.get('usernameEmail')?.touched">Please
+                                    provide a valid username or email.</span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center" style="margin-top: 1%;">
+                            <label for="password" class="col-md-3 col-form-label text-md-right"
+                                style="text-align: center">Password:</label>
+                            <div class="col-md-6">
+                                <input type="password" id="password" class="form-control" [formControlName]="'password'"
+                                    name="password" required placeholder="Password" minlength="6" maxlength="45">
+                                <span class="invalid-validation-field"
+                                    *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched">Please
+                                    provide a valid password with minimum of 6 characters.</span>
+                            </div>
+                        </div>
+                        <div class="form-group justify-content-center" style="display:flex;margin-bottom: 1%;margin-top: 1%;">
+                            <label for="rememberMe" class="col-form-label text-md-right"
+                                style="margin-right: 1em;">Remember me:</label>
+                            <input type="checkbox" id="rememberMe" [formControlName]="'rememberMe'" name="rememberMe"
+                                style="width: 25px;height: 25px;align-self: center;">
+                        </div>
+                        <div *ngIf='this.loginError!=""' class="flex-center-container" style="margin-bottom: 1em;">
+                            <span class="invalid-validation-field-main">{{loginError}}</span>
+                        </div>
+                        <span class="flex-center-container">
+                            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+                                Login
+                            </button>
+                            <span style="padding-left: 1em;align-self: center;">New to Birthday Calendar? <a
+                                    routerLink="/signup">Sign
+                                    up</a></span>
+                        </span>
+                        <div style="text-align: center;">
+                            <a routerLink="/forgot-password">Forgot password?</a>
+                        </div>
+                        <div style="text-align: center;">
+                            <a routerLink="/activate-account">Need account validation link?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

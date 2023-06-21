@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/reviewer
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    change-log: classpath:db.changelog/changelog-master.xml
+
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 25
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    protocol: smtp
+
+springdoc:
+  api-docs:
+    path: /api/v1/docs/api-docs
+  swagger-ui:
+    path: /api/v1/docs/swagger
+
+application-config:
+  jwt:
+    secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  email:
+    from-address: noreply@reviewer.com
+  client-application-url: http://localhost:4200
+  api-domain: localhost
+  token-encryption-password: 8+1IpkqhaTBmQwEFrrz57wO4Tn8w5p6eL4mijShrOE+wN494TjNvGMnPVQcV+34z
+  token-encryption-salt: o6xkeTlu3NaGrVAWVncXsJI/O8EbqBzvMoTIOeL8/LeqNWjP4P7ajAlSvg0FWnl1

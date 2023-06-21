@@ -1,0 +1,10 @@
+rootProject.name = 'reviewer'
+include 'reviewer-ui'
+include 'reviewer-domain'
+include 'reviewer-api-rest'
+include 'reviewer-api'
+include 'reviewer-application-services'
+include 'reviewer-persistence-jpa'
+include 'reviewer-main'
+include 'reviewer-spring-modules'
+

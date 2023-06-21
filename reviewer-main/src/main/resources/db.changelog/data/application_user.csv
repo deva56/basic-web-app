@@ -1,0 +1,2 @@
+id,activated,disabled,email,password,username
+0,true,false,admin@test.com,$2a$10$dA.98Iz6R2TjGN/zCEL2uu8DetrjD2Wadem/HvCzjaXBF.81UUhlK,admin_root

@@ -1,0 +1,106 @@
+name: AWS deployment workflow
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  publish_backend_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Determine backend changes
+        uses: dorny/paths-filter@v2
+        id: backend-changes
+        with:
+          filters: |
+            backend_changes:
+              - './!(reviewer-ui/reviewer/**)/**'
+      - name: Set up JDK 17
+        if: ${{ steps.backend-changes.outputs.backend_changes == 'true' }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Change wrapper permissions
+        if: ${{ steps.backend-changes.outputs.backend_changes == 'true' }}
+        run: chmod +x ./gradlew
+      - name: Build and test with Gradle
+        if: ${{ steps.backend-changes.outputs.backend_changes == 'true' }}
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: build
+      - name: Build & push Docker image
+        if: ${{ steps.backend-changes.outputs.backend_changes == 'true' }}
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: ${{ secrets.DOCKER_USERNAME }}/basic_web_app
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Generate Deployment Package
+        if: ${{ steps.backend-changes.outputs.backend_changes == 'true' }}
+        run: zip deploy.zip Dockerrun.aws.json
+      - name: Get timestamp
+        if: ${{ steps.backend-changes.outputs.backend_changes == 'true' }}
+        uses: gerred/actions/current-time@master
+        id: current-time
+      - name: Deploy to EB
+        if: ${{ steps.backend-changes.outputs.backend_changes == 'true' }}
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_EB_ADMIN_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_EB_ADMIN_SECRET_ACCESS_KEY }}
+          application_name: basic-web-app-api
+          environment_name: Basic-web-app-api-env
+          version_label: "basic-web-app-api-${{ steps.current-time.outputs.time }}"
+          region: eu-central-1
+          deployment_package: deploy.zip
+
+  publish_frontend_changes:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./reviewer-ui/reviewer
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_S3_ADMIN_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_S3_ADMIN_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Determine frontend changes
+        uses: dorny/paths-filter@v2
+        id: frontend-changes
+        with:
+          filters: |
+            frontend_changes:
+              - 'reviewer-ui/reviewer/**'
+            workflow_changes:
+              - '.github/**'
+      - name: Setup Node.js
+        if: ${{ steps.frontend-changes.outputs.frontend_changes == 'true' || steps.frontend-changes.outputs.workflow_changes == 'true' }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      - name: Install npm dependencies
+        if: ${{ steps.frontend-changes.outputs.frontend_changes == 'true' || steps.frontend-changes.outputs.workflow_changes == 'true' }}
+        run: npm ci
+      - name: Build web application
+        if: ${{ steps.frontend-changes.outputs.frontend_changes == 'true' || steps.frontend-changes.outputs.workflow_changes == 'true' }}
+        run: npm run build
+      - name: Deploy web application to s3
+        if: ${{ steps.frontend-changes.outputs.frontend_changes == 'true' || steps.frontend-changes.outputs.workflow_changes == 'true' }}
+        run: aws s3 sync ./dist/reviewer s3://${{ secrets.AWS_CLIENT_APP_S3_BUCKET_NAME }}

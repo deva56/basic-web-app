@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1686015975024-1" author="Antonio (generated)">
+        <createSequence incrementBy="50" sequenceName="application_user_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1686015975024-2" author="Antonio (generated)">
+        <createSequence incrementBy="50" sequenceName="authority_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1686015975024-3" author="Antonio (generated)">
+        <createSequence incrementBy="50" sequenceName="forgot_password_token_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1686015975024-4" author="Antonio (generated)">
+        <createSequence incrementBy="50" sequenceName="refresh_token_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1686015975024-5" author="Antonio (generated)">
+        <createSequence incrementBy="50" sequenceName="validation_token_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1686015975024-6" author="Antonio (generated)">
+        <createTable tableName="application_user">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_application_user"/>
+            </column>
+            <column name="username" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activated" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="disabled" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1686015975024-7" author="Antonio (generated)">
+        <createTable tableName="authority">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_authority"/>
+            </column>
+            <column name="name" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1686015975024-8" author="Antonio (generated)">
+        <createTable tableName="forgot_password_token">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_forgotpasswordtoken"/>
+            </column>
+            <column name="token_value" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_used" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+            <column name="expires_at" type="DATETIME"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1686015975024-9" author="Antonio (generated)">
+        <createTable tableName="refresh_token">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_refreshtoken"/>
+            </column>
+            <column name="is_valid" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="session_id" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+            <column name="expires_at" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1686015975024-10" author="Antonio (generated)">
+        <createTable tableName="user_authority">
+            <column name="authority_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1686015975024-11" author="Antonio (generated)">
+        <createTable tableName="validation_token">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_validation_token"/>
+            </column>
+            <column name="token_value" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_validated" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+            <column name="expires_at" type="DATETIME"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1686015975024-12" author="Antonio (generated)">
+        <addUniqueConstraint columnNames="email" constraintName="uc_application_user_email"
+                             tableName="application_user"/>
+    </changeSet>
+    <changeSet id="1686015975024-13" author="Antonio (generated)">
+        <addUniqueConstraint columnNames="username" constraintName="uc_application_user_username"
+                             tableName="application_user"/>
+    </changeSet>
+    <changeSet id="1686015975024-14" author="Antonio (generated)">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="forgot_password_token"
+                                 constraintName="FK_FORGOTPASSWORDTOKEN_ON_USER" referencedColumnNames="id"
+                                 referencedTableName="application_user"/>
+    </changeSet>
+    <changeSet id="1686015975024-15" author="Antonio (generated)">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="refresh_token"
+                                 constraintName="FK_REFRESHTOKEN_ON_USER" referencedColumnNames="id"
+                                 referencedTableName="application_user"/>
+    </changeSet>
+    <changeSet id="1686015975024-16" author="Antonio (generated)">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="validation_token"
+                                 constraintName="FK_VALIDATION_TOKEN_ON_USER" referencedColumnNames="id"
+                                 referencedTableName="application_user"/>
+    </changeSet>
+    <changeSet id="1686015975024-17" author="Antonio (generated)">
+        <addForeignKeyConstraint baseColumnNames="authority_id" baseTableName="user_authority"
+                                 constraintName="fk_useaut_on_authority" referencedColumnNames="id"
+                                 referencedTableName="authority"/>
+    </changeSet>
+    <changeSet id="1686015975024-18" author="Antonio (generated)">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_authority"
+                                 constraintName="fk_useaut_on_user" referencedColumnNames="id"
+                                 referencedTableName="application_user"/>
+    </changeSet>
+    <changeSet id="1686065756651-1" author="Antonio">
+        <loadData tableName="authority" file="db.changelog/data/authority.csv"/>
+    </changeSet>
+    <changeSet id="1686067432747-1" author="Antonio">
+        <loadData tableName="application_user" file="db.changelog/data/application_user.csv"/>
+    </changeSet>
+    <changeSet id="1686067457046-1" author="Antonio">
+        <loadData tableName="user_authority" file="db.changelog/data/user_authority.csv"/>
+    </changeSet>
+</databaseChangeLog>

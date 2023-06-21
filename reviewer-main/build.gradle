@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+group 'com.futurefactorytech'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.liquibase:liquibase-core'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation project(":reviewer-api")
+    implementation project(":reviewer-api-rest")
+    implementation project(":reviewer-application-services")
+    implementation project(":reviewer-domain")
+    implementation project(":reviewer-persistence-jpa")
+    implementation project(":reviewer-spring-modules")
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocApi"
+    implementation "org.springdoc:springdoc-openapi-starter-common:$springdocApi"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootJar {
+    archivesBaseName = 'reviewer'
+}
+
+jar {
+    enabled = false
+}
