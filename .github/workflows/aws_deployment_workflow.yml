@@ -61,9 +61,9 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_EB_ADMIN_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_EB_ADMIN_SECRET_ACCESS_KEY }}
-          application_name: basic-web-app-api
-          environment_name: Basic-web-app-api-env
-          version_label: "basic-web-app-api-${{ steps.current-time.outputs.time }}"
+          application_name: basic-web-app-backend-api
+          environment_name: Basic-web-app-backend-api-environment
+          version_label: "basic-web-app-backend-api-${{ steps.current-time.outputs.time }}"
           region: eu-central-1
           deployment_package: deploy.zip
 
