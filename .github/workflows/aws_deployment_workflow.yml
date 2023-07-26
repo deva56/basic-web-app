@@ -2,8 +2,10 @@ name: AWS deployment workflow
 
 on:
   push:
+    paths-ignore: [ '*.md' ]
     branches: [ "master" ]
   pull_request:
+    paths-ignore: [ '*.md' ]
     branches: [ "master" ]
 
 permissions:
@@ -88,6 +90,7 @@ jobs:
               - 'reviewer-ui/reviewer/**'
             workflow_changes:
               - '.github/**'
+              - 'Dockerrun.aws.json'
       - name: Setup Node.js
         if: ${{ steps.frontend-changes.outputs.frontend_changes == 'true' || steps.frontend-changes.outputs.workflow_changes == 'true' }}
         uses: actions/setup-node@v3

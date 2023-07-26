@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Authentication": {
-    "bucket": "docker-login-bucket-basic-web-app-api",
+    "bucket": "docker-login-bucket-basic-web-app-backend-api",
     "key": "dockercfg"
   },
   "Image": {
